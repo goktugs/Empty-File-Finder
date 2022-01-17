@@ -25,13 +25,24 @@ func main() {
 		log.Fatal(err)
 		return
 	}
+
+	var names []byte
+
 	// !!! Check type of files. If you want to reach name of file you need to use methods
 	//		like file.Name()
 	for _, file := range files {
 		if file.Size() == 0 {
 			name := file.Name()
-			fmt.Println(name)
+			names = append(names, name...)
+			names = append(names, '\n')
 		}
+	}
+
+	// In this part with writefile you can see your empty file on out.txt
+	err = os.WriteFile("out.txt", names, 0644)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
 }
